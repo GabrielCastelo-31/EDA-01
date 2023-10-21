@@ -2,36 +2,24 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-const int max = 15;
+const long int MAX = 15;
 
-int charToInt(char c)
+int sum_digits(char *s, int len, int sum)
 {
-    return c - '0';
-}
+    int i = len - 1; // posiçao correta na string
 
-int sum(char *num, int soma, int i, int j)
-{
-    if (j == i - 1)
-    {
-        soma = charToInt(num[j]);
-        soma += soma;
-        printf("%d\n", soma);
-        return soma;
-    }
-    soma = charToInt(num[j]);
-    printf("char da string: %c\n", num[j]);
-    printf("char convertido em int: %d\n", soma);
-    printf("soma = %d\n", soma);
-    return sum(num, soma, i, j + 1);
+    if (i == 0)
+        return s[0] - '0';
+
+    sum = s[i] - '0';
+    len--;
+    return sum + sum_digits(s, len, sum);
 }
 int main()
 {
-    int result = 0;
-    char num[max];
-    fgets(num, max, stdin);
-    puts(num);
-    int i = strlen(num);
-    result = sum(num, 0, i, 0);
-    printf("r = %d\n", result);
+    char number[MAX];
+    scanf("%s", number);
+    int sum = sum_digits(number, strlen(number), 0);
+    printf("%d\n", sum);
     return 0;
 }
