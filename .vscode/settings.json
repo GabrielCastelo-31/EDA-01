@@ -1,5 +1,6 @@
 {
   "files.associations": {
-    "Letra-A.C": "cpp"
+    "Letra-A.C": "cpp",
+    "queue.h": "c"
   }
 }
