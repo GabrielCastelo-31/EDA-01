@@ -13,7 +13,7 @@ typedef struct stack
     struct stack *prox;
 } stack;
 
-no *cria_pilha(stack *p)
+stack *cria_pilha()
 {
     stack *pilha = malloc(sizeof(stack));
     pilha->prox = NULL;
@@ -29,12 +29,14 @@ void empilha(stack *topo, no *node)
 void desempilha(stack *p)
 {
     if (p == NULL || p->prox == NULL)
-        return 0;
+        return;
+
 
     stack *lixo = p->prox;
     p->prox = lixo->prox;
     lixo->prox = NULL;
     free(lixo);
+
 }
 no *topo(stack *p)
 {
@@ -49,15 +51,16 @@ bool pilha_vazia(stack *p)
     return false;
 }
 
-void em_ordem(no *raiz)
+void pos_ordem(no *raiz)
 {
     no *atual = raiz;
-    stack *pilha = cria_pilha(pilha);
+    stack *pilha = cria_pilha();
     while (atual != NULL || !pilha_vazia(pilha))
     {
         if (atual != NULL)
         {
             empilha(pilha, atual);
+
             atual = atual->esq;
         }
         else
@@ -69,4 +72,19 @@ void em_ordem(no *raiz)
         }
     }
     printf("\n");
+}
+int main() {
+    // Exemplo de utilização
+    no *raiz = malloc(sizeof(no));
+    raiz->dado = 1;
+    raiz->esq = malloc(sizeof(no));
+    raiz->esq->dado = 2;
+    raiz->esq->esq = raiz->esq->dir = NULL;
+    raiz->dir = malloc(sizeof(no));
+    raiz->dir->dado = 3;
+    raiz->dir->esq = raiz->dir->dir = NULL;
+
+    pos_ordem(raiz);
+
+    return 0;
 }
